@@ -1,0 +1,59 @@
+{% extends 'sheader.html' %}
+{% load static %}
+{% block content%}
+<!DOCTYPE html>
+<html lang="en">
+<body class="animsition">
+
+	<!-- Title page -->
+
+	<!-- Content page -->
+    <br>
+	<section class="bg0 p-t-104 p-b-116">
+		<div class="container">
+			<div class="flex-w flex-tr">
+				<div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
+					{% if msg%}
+					<div class="alert alert-danger">
+						<strong>{{msg}}</strong>
+					</div>
+					{% endif %}
+					<form method="post" action="{% url 'sprofile' %}" enctype="multipart/form-data">
+						{% csrf_token %}
+						<h4 class="mtext-105 cl2 txt-center p-b-30">
+							Profile
+						</h4>
+                        
+						<div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="firstname" value="{{e.firstname}}">
+						</div>
+
+						<div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="lastname" value="{{e.lastname}}">
+						</div>
+
+                        <div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="mobile" value="{{e.mobile}}">
+						</div>
+
+                        <div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" name="email" value="{{e.email}}">
+						</div>
+
+						<div >
+							<img src="{{request.session.profile_picture}}" style="margin-left: 40%;" width="20%;">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="file" name="profile_picture">
+						</div>
+
+						<button style="margin-left: 50 px;" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
+							Submit
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>	
+	
+</body>
+</html>
+{% endblock %}

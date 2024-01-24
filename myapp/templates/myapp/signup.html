@@ -1,0 +1,92 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content%}
+<!DOCTYPE html>
+<html lang="en">
+<body class="animsition">
+
+	<!-- Title page -->
+
+	<!-- Content page -->
+	<section class="bg0 p-t-104 p-b-116">
+		<div class="container">
+			<div class="flex-w flex-tr">
+				<div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
+					{% if msg%}
+					<div class="alert alert-danger">
+						<strong>{{msg}}</strong>
+					</div>
+					{% endif %}
+					<form method="post" action="{% url 'signup' %}" enctype="multipart/form-data">
+						{% csrf_token %}
+						<h4 class="mtext-105 cl2 txt-center p-b-30">
+							Sign Up
+						</h4>
+						<select style="margin-left: 20%;" name="usertype">
+							<option>----Select User----</option>
+							<option value="buyer">Buyer</option>
+							<option value="seller">Seller</option>
+						</select>
+						<br><br>
+                        <div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="firstname" placeholder="Enter Your First Name">
+						</div>
+
+                        <div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="lastname" placeholder="Enter Your Last Name">
+						</div>
+
+                        <div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="mobile" placeholder="Enter Your Mobile Number">
+						</div>
+
+                        <div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" id="email" name="email" placeholder="Your Email Address">
+							<span id="email_error"></span>
+						</div>
+
+                        <div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="password" placeholder="Enter Your Password">
+						</div>
+
+                        <div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" name="cpassword" placeholder="Confirm Password">
+						</div>
+
+						<div >
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="file" name="profile_picture">
+						</div>
+
+						<button style="margin-left: 50 px;" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
+							Submit
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>	
+<script>
+          $("#email").change(function(){
+            var email=$(this).val();
+            //alert(email);
+            $.ajax({
+              url: '/ajax/validate_email/',
+              data: {
+                'email': email
+              },
+              dataType: 'json',
+              success: function (data) {
+                if (data.is_taken) {
+                  /*document.getElementById("email").style.border="5px solid red";*/
+                  document.getElementById("email_error").innerHTML="This Email ID Is Already Registered";
+                }else{
+                  document.getElementById("email_error").innerHTML="";
+                }
+              }
+            });
+          });
+
+        </script>
+</body>
+</html>
+{% endblock %}
